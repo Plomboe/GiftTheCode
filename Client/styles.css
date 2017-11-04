@@ -77,6 +77,16 @@ body {
     cursor: pointer;
   }
 
+.importFile{
+  display: block;
+  padding: 14px 45px;
+  background: #39D2B4;
+  color: #fff;
+  font-size: 1em;
+  transition: all .4s;
+  cursor: pointer;
+}
+
 .mainArea{
     width: 1024px;
     margin-right: auto;
