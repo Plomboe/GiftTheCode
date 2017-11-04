@@ -21,13 +21,8 @@ def allowed_file(filename):
 @app.route("/", methods=['GET', 'POST'])
 def main_page():
     if request.method == 'POST':
-        print('hello!!!')
-        print(request.method)
-        #print(request)
-        #print(request.files)
-        print("It's me!!!")
-        print(request.files.to_dict())
-        print(pd.read_excel(request.files['excel']))
+        df = pd.read_excel(request.files['excel']).to_dict()
+        return render_template('charts.html', data=df)
 
     print(request.method)
     return render_template('client.html')
