@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Charts</title>
+	<!-- Load c3.css -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css" />
+	<link rel="stylesheet" href="styles.css">
+	<style>
+	</style>
+</head>
+<body>
+
+
+<div class="topContainer">
+	<div class="topDiv"><h1>Charts</h1></div>
+    <h1> {{ data }} </h1>
+
+</div>
+
+<div id="chart-one" class="topDiv"></div>
+
+
+<!-- Load d3.js and c3.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
+
+
+
+<script>
+
+var data = {{ data }}
+
+var firstTitle = "Degrees C";
+var secondTitle = "Faraenheit";
+var thirdTitle = "Kelvin";
+
+var month1 = "January";
+var month2 = "February";
+var month3 = "March";
+var month4 = "April";
+var month5 = "May";
+var month6 = "June";
+var month7 = "July";
+var month8 = "August";
+var month9 = "September";
+var month10 = "October";
+var month11 = "November";
+var month12 = "December";
+
+var charts = c3.generate({
+	bindto: "#chart-one",
+	data: {
+		columns: [
+			[`${firstTitle}`, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+			[`${secondTitle}`, 13, 14, 20, 30, 39, 42, 70],
+			[`${thirdTitle}`, 175, 100, 180, 300, 140, 230, 310]
+		],
+	type: "line", //pie, bar, donut, scatter, etc
+	},
+	axis: {
+		x: {
+			type: "category",
+			categories: [
+				month1, month2, month3, month4, month5, month6, month7, month8, month9, month10, month11, month12,
+			],
+		},
+	},
+});
+</script>
+	
+</body>
+
+</html>
