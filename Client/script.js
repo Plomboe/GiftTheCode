@@ -1,7 +1,7 @@
 $.ajax({
   url: 'http://jsonplaceholder.typicode.com/posts',
   data: {
-     format: 'json'
+     format: 'json',
   },
   error: function() {
      $('#first').html('<p>An error has occurred</p>');
