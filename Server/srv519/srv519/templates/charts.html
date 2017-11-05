@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Charts</title>
+    <title>The 519 Reporting</title>
 	<!-- Load c3.css -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css" />
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/styles.css') }}">
@@ -62,30 +62,30 @@ function populate() {
 			console.log(response);
             console.log(response[6][0]);
 	
-	var charts = c3.generate({
-	bindto: "#chart-one",
-	data: {
-		columns: [
-			[`${firstTitle}`].concat(all),
-			[`${secondTitle}`].concat(reg),
-			[`${thirdTitle}`].concat(attend)
-		],
-	type: "line", //pie, bar, donut, scatter, etc
-	},
-	axis: {
-		x: {
-			type: "category",
-			categories: [
-				response[6][0][0], response[6][0][1], response[6][0][2], response[6][0][3], response[6][0][4], response[6][0][5], response[6][0][6], response[6][0][7], response[6][0][8], response[6][0][9], response[6][0][10],  response[6][0][11] 
-			] 
-		},
-	},
-});
+            var charts = c3.generate({
+                bindto: "#chart-one",
+                data: {
+                    columns: [
+                        [`${firstTitle}`].concat(all),
+                        [`${secondTitle}`].concat(reg),
+                        [`${thirdTitle}`].concat(attend)
+                    ] },
+                type: "line", //pie, bar, donut, scatter, etc
+                axis: {
+                    x: {
+                        type: "category",
+                        categories: [
+                            response[6][0][0], response[6][0][1], response[6][0][2], response[6][0][3], response[6][0][4], response[6][0][5], response[6][0][6], response[6][0][7], response[6][0][8], response[6][0][9], response[6][0][10],  response[6][0][11] 
+                        ] 
+                    },
+            	}
+            });
         },
         error: function(error) {
             console.log(error);
         }
     })};
+
 populate();
 
 
