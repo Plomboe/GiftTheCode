@@ -1,12 +1,13 @@
 # all the imports
 from flask import (Flask, request, session,
-                   render_template, url_for, 
+                   render_template, url_for, json,
                    jsonify)
 from werkzeug.utils import secure_filename
 
 from visualization import *
 
 import sys
+import datetime
 import os.path
 import pandas as pd
 
@@ -17,25 +18,32 @@ app = Flask(__name__) # create the application instance :)
 app.config.from_object(__name__) # load config from this file , server.py
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+app.secret_key = 'super secret key'
+
 def allowed_file(filename):
     return ('.' in filename
             and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS)
 
-#---ROUTES----
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/")
 def main_page():
-    if request.method == 'POST':
-        df = pd.read_excel(request.files['excel'])
-        print(df)
-        print(type(df))
-        user_id = '16950606-4873'
-        user_graph_list = user_graph(user_id, df)
-        user_graph_dict = dict(zip(['axis','df_all','df_attend','df_reg','percentile'], user_graph_list))
-        print(user_graph_dict)
-        return render_template('charts.html', data = df.to_dict())
-
     print(request.method)
     return render_template('client.html')
+
+@app.route('/dashboard', methods=['POST'])
+def load_data():
+    df = pd.read_excel(request.files['excel'])
+    members = sorted(list(set([xx for xx in df['Member#']])))
+
+    eventid=6
+    event_data = program_graph(eventid, df)
+
+    event_dict = {col: list(event_data[col]) for col in event_data.columns}
+    event_dict.update({'month': [dd.month for dd in event_data.index]})
+
+    session['event_data'] = df.to_json()
+    session['users'] = members
+    return render_template('charts.html',
+                           data = {'event_data': event_dict})
 
 if __name__ == "__main__":
     app.run()

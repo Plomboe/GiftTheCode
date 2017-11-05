@@ -50,11 +50,11 @@ def user_graph(id, data):
     qq_list = df_other.values.flatten()
     percentile = stats.percentileofscore(qq_list, sum(df_attend))
     
-    return [axis, df_all, df_attend, df_reg, percentile]    
+    return (axis, df_all, df_attend, df_reg, percentile)    
     
 ##################
 
-def program_graph(id, data): 
+def program_graph(eventid, data): 
     df = data.copy(deep = True) 
     
     # Axis: current month and go back 12 months -> find highest month 
@@ -75,21 +75,24 @@ def program_graph(id, data):
     df_all.columns = ['Attendees']
         
     # Total Event Registered
-    df_reg = df[(df['EventID'] == id)].copy(deep = True) 
+    df_reg = df[(df['EventID'] == eventid)].copy(deep = True) 
     df_reg = df_reg.groupby('Interval')['Event Name'].count() 
     df_reg.columns = ['Number Registered']
     
     # Total Event Attended
-    df_attend = df[(df['EventID'] == id) & (df['Attended'] == 1)].copy(deep = True) 
+    df_attend = df[(df['EventID'] == eventid) & (df['Attended'] == 1)].copy(deep = True) 
     df_attend = df_attend.groupby('Interval')['Event Name'].count() 
     df_attend.columns = ['Number Attended']
-        
+       
+    df_total = pd.DataFrame({'all': df_all, 'reg': df_reg, 'attend':df_attend}).fillna(0.0)
+
     # What quantile does this user belong in? 
-    df_other = data.copy(deep = True)
-    df_other = df_other.groupby('EventID')['Event Name'].count()
-    qq_list = df_other.values.flatten()
-    percentile = stats.percentileofscore(qq_list, sum(df_attend))
-    return [axis, df_all, df_attend, df_reg, percentile] 
+    #df_other = data.copy(deep = True)
+    #df_other = df_other.groupby('EventID')['Event Name'].count()
+    #qq_list = df_other.values.flatten()
+    #percentile = stats.percentileofscore(qq_list, sum(df_attend))
+    #return (axis, df_all, df_attend, df_reg, percentile) 
+    return df_total
         
 def program_relationship_graph(id1,id2,data): 
     # Find the number of people who attended both events 
