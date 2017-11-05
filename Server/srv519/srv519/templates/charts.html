@@ -12,9 +12,24 @@
 <body>
 
 
-<div class="topContainer">
-	<div class="topDiv"><h1>Charts</h1></div>
+    <div class="topContainer">
+        <div class="topDiv">
+
+        </div>
+    </div>
+
+ <div class="row">
+    <div class="imgcenter" id="banner">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="The 519 Logo" width="200" height="70">
+    </div>
 </div>
+
+ <p>
+     <br>
+     <h3>Event attendance over the last 13 months</h3> 
+     <br>
+</p>
+
 
 <div id="chart-one" class="topDiv"></div>
 
@@ -29,9 +44,6 @@ var all = Array();
 var reg = Array();
 var attend = Array();
 
-
-
-
 function populate() {
     // make an AJAX call to get list of movies and image files 
     $.ajax({
@@ -42,12 +54,12 @@ function populate() {
         success: function(response) {
             for (var ifilm = 0; ifilm < response[0].length; ifilm++) {
                 // add films to the #containment-wrapper element in DOM
-                month[ifilm] = response[0][ifilm];
-                all[ifilm] = response[1][ifilm];
-                reg[ifilm] = response[2][ifilm];
-                attend[ifilm] = response[3][ifilm];
+                month[ifilm] = response[0][0][ifilm];
+                all[ifilm] = response[0][1][ifilm];
+                reg[ifilm] = response[0][2][ifilm];
+                attend[ifilm] = response[0][3][ifilm];
 			}
-			console.log(response[0][0]);
+			console.log(response);
 	
 	var charts = c3.generate({
 	bindto: "#chart-one",
