@@ -34,24 +34,27 @@ def load_data():
     df = pd.read_excel(request.files['excel'])
     members = sorted(list(set([xx for xx in df['MemberNum']])))
 
-    eventid=6
-    event_data = program_graph(eventid, df)
+    event_data = []
+    for eventid in range(1,11):
+        ed = program_graph(eventid, df)
+        event_dict = {col: list([int(e) for e in ed[col]])
+                      for col in ed.columns}
+        event_dict.update({'month': [dd.month for dd 
+                           in ed.index]})
+        event_data.append(event_dict)
 
-    event_dict = {col: list(event_data[col]) for col in event_data.columns}
-    event_dict.update({'month': [dd.month for dd in event_data.index]})
-
-    #session['event_data'] = df.to_json()
-    session['event_dict'] = event_dict
+    session['event_data'] = event_data
     return render_template('charts.html')
 
 @app.route('/get_graph', methods=['GET'])
 def get_graph():
+    print('I am STILL HERE!!!')
     print('getting graph!!!!')
-    #print(session['event_dict'].values())
-    return json.dumps([session['event_dict']['month'],
-                       session['event_dict']['all'],
-                       session['event_dict']['reg'],
-                       session['event_dict']['attend']])
+    return json.dumps([[session['event_data'][ii]['month'],
+                        session['event_data'][ii]['all'],
+                        session['event_data'][ii]['reg'],
+                        session['event_data'][ii]['attend']]
+                        for ii in range(len(session['event_data']))])
 
 if __name__ == "__main__":
     app.run()
