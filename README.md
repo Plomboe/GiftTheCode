@@ -12,3 +12,6 @@ Our web platform generates graphs and metrics at the member and event/program gr
 
 Further implementations can include search features based on changes in member/event activity as well as better integration between Open Refine and our platform (possibly through an API call). 
 
+
+
+OpenRefine quickstart guide: https://imgur.com/a/todFn
