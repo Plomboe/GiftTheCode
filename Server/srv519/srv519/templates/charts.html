@@ -24,13 +24,6 @@
     </div>
 </div>
 
- <p>
-     <br>
-     <h3>Event attendance over the last 13 months</h3> 
-     <br>
-</p>
-
-
 <div id="chart-one" class="topDiv"></div>
 
 <!-- Load d3.js and c3.js -->
@@ -78,7 +71,10 @@ function populate() {
                             response[6][0][0], response[6][0][1], response[6][0][2], response[6][0][3], response[6][0][4], response[6][0][5], response[6][0][6], response[6][0][7], response[6][0][8], response[6][0][9], response[6][0][10],  response[6][0][11] 
                         ] 
                     },
-            	}
+            	},
+                title: {
+                  text: 'Attendees by event type over last 12 months'
+                }
             });
         },
         error: function(error) {
