@@ -25,10 +25,67 @@
 
 <script>
 
+// fetch('Mockdata_Event.json')
+// .then(response => response.json())
+// .then(jsonResponse => console.log(jsonResponse.length));
+
+// fetch("Mockdata_Event.json")
+// .then(response => response.json())
+// .then(function(jsonResponse){
+// 	for (i=0; i<jsonResponse.length; i++){
+// 		console.log(jsonResponse[i].MemberNum);
+// 	}
+// 	for(var key in jsonResponse){
+// 		var value = jsonResponse[key];
+// 		console.log(value);
+// 	}
+// });
+
+
+// var firstTitle = "Degrees C";
+// var secondTitle = "Fahrenheit";
+// var thirdTitle = "Kelvin";
+
+// var month1 = "January";
+// var month2 = "February";
+// var month3 = "March";
+// var month4 = "April";
+// var month5 = "May";
+// var month6 = "June";
+// var month7 = "July";
+// var month8 = "August";
+// var month9 = "September";
+// var month10 = "October";
+// var month11 = "November";
+// var month12 = "December";
+
+// var charts = c3.generate({
+// 	bindto: "#chart-one",
+// 	data: {
+// 		columns: [
+// 			[`${firstTitle}`, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+// 			[`${secondTitle}`, 13, 14, 20, 30, 39, 42, 70],
+// 			[`${thirdTitle}`, 175, 100, 180, 300, 140, 230, 310]
+// 		],
+// 	type: "line", //pie, bar, donut, scatter, etc
+// 	},
+// 	axis: {
+// 		x: {
+// 			type: "category",
+// 			categories: [
+// 				month1, month2, month3, month4, month5, month6, month7, month8, month9, month10, month11, month12,
+// 			],
+// 		},
+// 	},
+// });
+
 var month = Array();
 var all = Array();
 var reg = Array();
 var attend = Array();
+
+
+
 
 function populate() {
     // make an AJAX call to get list of movies and image files 
@@ -44,7 +101,28 @@ function populate() {
                 all[ifilm] = response[1][ifilm];
                 reg[ifilm] = response[2][ifilm];
                 attend[ifilm] = response[3][ifilm];
-            }
+			}
+			console.log(response[0][0]);
+	
+	var charts = c3.generate({
+	bindto: "#chart-one",
+	data: {
+		columns: [
+			[`${firstTitle}`].concat(all),
+			[`${secondTitle}`].concat(reg),
+			[`${thirdTitle}`].concat(attend)
+		],
+	type: "line", //pie, bar, donut, scatter, etc
+	},
+	axis: {
+		x: {
+			type: "category",
+			categories: [
+				response[0][0], response[0][1], response[0][2], response[0][3], response[0][4], response[0][5], response[0][6], response[0][7], response[0][8], response[0][9], response[0][10], response[0][11],
+			] 
+		},
+	},
+});
         },
         error: function(error) {
             console.log(error);
@@ -52,10 +130,12 @@ function populate() {
     })};
 populate();
 
-console.log(month);
-console.log(all);
-console.log(reg);
-console.log(attend);
+console.log(month + "month");
+console.log(all + "all");
+console.log(reg + "reg");
+console.log(attend[0]);
+
+
 
 
 var firstTitle = "All";
@@ -63,6 +143,7 @@ var secondTitle = "Registered";
 var thirdTitle = "Attended";
 
 console.log(`${firstTitle}`)
+response[0][0];
 
 var charts = c3.generate({
 	bindto: "#chart-one",
@@ -77,7 +158,9 @@ var charts = c3.generate({
 	axis: {
 		x: {
 			type: "category",
-			categories: month,
+			categories: [
+				response[0][0], response[0][1], response[0][2], response[0][3], response[0][4], response[0][5], response[0][6], response[0][7], response[0][8], response[0][9], response[0][10], response[0][11],
+			] 
 		},
 	},
 });
