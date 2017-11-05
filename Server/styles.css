@@ -1,0 +1,138 @@
+body {
+    font-family: "Roboto";
+    letter-spacing: 0.2px;
+    line-height: 1.15;
+    /* Search Active */
+    margin: 0;
+}
+
+.topContainer{
+    margin: 0;
+    padding: 0;
+    background-color: cadetblue;
+    width: 100%;
+}
+
+.topDiv{
+    width: 1024px;
+    margin-right: auto;
+    margin-left: auto;
+    color: white;
+    padding: 20px;
+}
+
+.search-container{
+    margin: 20px 0 10px 0;
+}
+.search-box {
+    -webkit-transition: width 0.6s, border-radius 0.6s, background 0.6s, box-shadow 0.6s;
+    transition: width 0.6s, border-radius 0.6s, background 0.6s, box-shadow 0.6s;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    background: #ebebeb;
+  }
+  .search-box + label .search-icon {
+    color: black;
+    position: center;
+  }
+  .search-box:hover {
+    color: white;
+    background: #c8c8c8;
+    box-shadow: 0 0 0 0.1px #3d4752;
+  }
+  .search-box:hover + label .search-icon {
+    color: white;
+  }
+  .search-box:focus {
+    -webkit-transition: width 0.6s cubic-bezier(0, 1.22, 0.66, 1.39), border-radius 0.6s, background 0.6s;
+    transition: width 0.6s cubic-bezier(0, 1.22, 0.66, 1.39), border-radius 0.6s, background 0.6s;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    padding-left: 15px;
+    cursor: text;
+    width: 300px;
+    border-radius: auto;
+    background: #ebebeb;
+    color: black;
+  }
+  .search-box:focus + label .search-icon {
+    color: black;
+  }
+  .search-box:not(:focus) {
+    text-indent: -5000px;
+  }
+  
+  #search-submit {
+    position: relative;
+    display: none;
+  }
+  
+  .search-icon {
+    position: center;
+    left: -30px;
+    color: white;
+    cursor: pointer;
+  }
+
+.importFile{
+  display: block;
+  padding: 14px 45px;
+  background: #39D2B4;
+  color: #fff;
+  font-size: 1em;
+  transition: all .4s;
+  cursor: pointer;
+}
+
+.mainArea{
+    width: 1024px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.wide{
+    height: 400px;
+    text-align: center;
+    padding: 20px;
+}
+
+.row{
+  position: center;
+}
+
+.imgcenter{
+  position: inherit;  
+  margin-left: 25px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.row_content {
+    background-color: #6C3A9D;
+;
+}
+
+.column1 {
+  height: 120px;
+  padding: 15px;
+  width: 40%;
+  float: left;
+  background-color: #6C3A9D;
+
+}
+
+.column2 {
+ height: 120px;
+ padding: 15px;
+ padding-top: 31px;
+ width: 60%;
+ float: left;
+ background-color: #2eb82e;
+
+}
+
