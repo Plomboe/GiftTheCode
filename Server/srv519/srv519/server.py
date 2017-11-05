@@ -32,7 +32,7 @@ def main_page():
 @app.route('/dashboard', methods=['POST'])
 def load_data():
     df = pd.read_excel(request.files['excel'])
-    members = sorted(list(set([xx for xx in df['Member#']])))
+    members = sorted(list(set([xx for xx in df['MemberNum']])))
 
     eventid=6
     event_data = program_graph(eventid, df)
