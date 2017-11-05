@@ -1,6 +1,3 @@
-# Gift the Code
-
-
 # Charity: The 519 
 
 
