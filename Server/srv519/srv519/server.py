@@ -26,8 +26,6 @@ def allowed_file(filename):
 
 @app.route("/")
 def main_page():
-    print(session['nothing'])
-    print(session['users'])
     print(request.method)
     return render_template('client.html')
 
