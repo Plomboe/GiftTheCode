@@ -52,14 +52,15 @@ function populate() {
         data: '',
         type: 'GET',
         success: function(response) {
-            for (var ifilm = 0; ifilm < response[0].length; ifilm++) {
+            for (var ifilm = 0; ifilm < response[0][0].length; ifilm++) {
                 // add films to the #containment-wrapper element in DOM
-                month[ifilm] = response[0][0][ifilm];
-                all[ifilm] = response[0][1][ifilm];
-                reg[ifilm] = response[0][2][ifilm];
-                attend[ifilm] = response[0][3][ifilm];
+                month[ifilm] = response[6][0][ifilm];
+                all[ifilm] = response[6][1][ifilm];
+                reg[ifilm] = response[6][2][ifilm];
+                attend[ifilm] = response[6][3][ifilm];
 			}
 			console.log(response);
+            console.log(response[6][0]);
 	
 	var charts = c3.generate({
 	bindto: "#chart-one",
@@ -75,7 +76,7 @@ function populate() {
 		x: {
 			type: "category",
 			categories: [
-				response[0][0], response[0][1], response[0][2], response[0][3], response[0][4], response[0][5], response[0][6], response[0][7], response[0][8], response[0][9], response[0][10], response[0][11],
+				response[6][0][0], response[6][0][1], response[6][0][2], response[6][0][3], response[6][0][4], response[6][0][5], response[6][0][6], response[6][0][7], response[6][0][8], response[6][0][9], response[6][0][10],  response[6][0][11] 
 			] 
 		},
 	},
