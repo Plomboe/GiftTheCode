@@ -14,17 +14,17 @@ $.ajax({
     //     .append($title)
     //     .append($description);
     
-    console.log("hi");
-      var $first = $("<h3>").text(data[0].title);
-      var $second = $("<h3>").text(data[1].title);
-      var $third = $("<h3>").text(data[2].title);
-      var $fourth = $("<h3>").text(data[3].title);
-      $("#first").append($first);
-      $("#second").append($second);
-      $("#third").append($third);
-      $("#fourth").append($fourth);
+    // console.log("hi");
+    //   var $first = $("<h3>").text(data[0].title);
+    //   var $second = $("<h3>").text(data[1].title);
+    //   var $third = $("<h3>").text(data[2].title);
+    //   var $fourth = $("<h3>").text(data[3].title);
+    //   $("#first").append($first);
+    //   $("#second").append($second);
+    //   $("#third").append($third);
+    //   $("#fourth").append($fourth);
 
-    console.log(data);
+    // console.log(data);
   },
   type: 'GET'
 });
