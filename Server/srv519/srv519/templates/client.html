@@ -19,9 +19,8 @@
                             <label for="search-box"><span class="glyphicon glyphicon-search search-icon"></span></label>
                             <input type="submit" id="search-submit" />
                     </form>
-                    <form method="POST" enctype=multipart/form-data>
-                            <input type="file" name="excel" accept=".xls, .xlsx, .csv">
-                            <input type="submit">	
+                    <form id="file_input_form" method="POST" enctype=multipart/form-data action="{{ url_for('load_data') }}">
+                            <input type="file" name="excel" id="file_input" accept=".xls, .xlsx, .csv">
                     </form>
             </div>
     </div>
@@ -47,4 +46,11 @@
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>  
 
 </body>
+
+<script>
+document.getElementById("file_input").onchange = function() {
+    document.getElementById("file_input_form").submit();
+};
+</script>
+
 </html>
