@@ -1,6 +1,10 @@
 # all the imports
-from flask import Flask, request, session, render_template, url_for, json
+from flask import (Flask, request, session,
+                   render_template, url_for, 
+                   jsonify)
 from werkzeug.utils import secure_filename
+
+from visualization import *
 
 import sys
 import os.path
@@ -21,8 +25,14 @@ def allowed_file(filename):
 @app.route("/", methods=['GET', 'POST'])
 def main_page():
     if request.method == 'POST':
-        df = pd.read_excel(request.files['excel']).to_dict()
-        return render_template('charts.html', data=df)
+        df = pd.read_excel(request.files['excel'])
+        print(df)
+        print(type(df))
+        user_id = '16950606-4873'
+        user_graph_list = user_graph(user_id, df)
+        user_graph_dict = dict(zip(['axis','df_all','df_attend','df_reg','percentile'], user_graph_list))
+        print(user_graph_dict)
+        return render_template('charts.html', data = df.to_dict())
 
     print(request.method)
     return render_template('client.html')
