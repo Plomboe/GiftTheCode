@@ -4,45 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>The 519 Reporting</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.js'></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-		
     <div class="topContainer">
-            <div class="topDiv">
-                    <form class="search-container">
-                            <input id="search-box" type="text" class="search-box" name="q" />
-                            <label for="search-box"><span class="glyphicon glyphicon-search search-icon"></span></label>
-                            <input type="submit" id="search-submit" />
-                    </form>
-                    <form id="file_input_form" method="POST" enctype=multipart/form-data action="{{ url_for('load_data') }}">
-                            <input type="file" name="excel" id="file_input" accept=".xls, .xlsx, .csv">
-                    </form>
-            </div>
-    </div>
+        <div class="topDiv">
 
-    <div class="mainArea">
-            <div class="row">
-                    <div class="col-sm-3 wide" id="first">col-sm</div>
-                    <div class="col-sm-3 wide" id="second">col-sm</div>
-                    <div class="col-sm-3 wide" id="third">col-sm</div>
-                    <div class="col-sm-3 wide" id="fourth">col-sm</div>
-            </div>
-            </div>
-
-    <div class="mainArea">
-        <div class="row">
-            <div class="col-sm-3 wide" id="first">col-sm</div>
-            <div class="col-sm-3 wide" id="second">col-sm</div>
-            <div class="col-sm-3 wide" id="third">col-sm</div>
-            <div class="col-sm-3 wide" id="fourth">col-sm</div>
         </div>
     </div>
 
+    <div class="mainArea">           
+         <div class="row">
+            <div class="imgcenter" id="banner">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="The 519 Logo" width="200" height="70">
+            </div>
+        </div>
+
+        <div class="row_content">
+            <div class="column1">
+            <form class="search-container" action="//llamaswill.tumblr.com/search">
+                <input id="search-box" placeholder="Search for a donor" type="text" class="search-box" name="q" />
+                <label for="search-box"><span class="glyphicon glyphicon-search search-icon"></span></label>
+                <input type="submit" id="search-submit" />
+            </form>
+
+            </div>
+
+            <div class="column2">
+                <form id="file_input_form" method="POST" enctype=multipart/form-data action="{{ url_for('load_data') }}">
+                    <input type="button" id="not_file" class="excel_button" value="Import Excel File" onclick="document.getElementById('file_input').click();" />
+                    <!--<input type="file" style="display:none;" id="file" name="file"/>-->
+                    <input type="file" name="excel" style="display:none;" id="file_input" accept=".xls, .xlsx, .csv">
+                </form>
+            </div>
+ 
+        </div>
+
+    </div>
+		
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>  
 
 </body>
