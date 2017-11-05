@@ -38,18 +38,18 @@ def user_graph(id):
     df_all.columns = ['Attendees']
 
     # Total Events User Attended
-    df_attend = df[(df['Member#'] == id) & (df['Attended'] == 1)].copy(deep = True) 
+    df_attend = df[(df['MemberNum'] == id) & (df['Attended'] == 1)].copy(deep = True) 
     df_attend = df_attend.groupby('Interval')['Event Name'].count() 
     df_attend.columns = ['Events Attended']
 
     # Total Events User Registered
-    df_reg = df[(df['Member#'] == id)].copy(deep = True) 
+    df_reg = df[(df['MemberNum'] == id)].copy(deep = True) 
     df_reg = df_reg.groupby('Interval')['Event Name'].count() 
     df_reg.columns = ['Events Registered']
     
     # What quantile does this user belong in? 
     df_other = data.copy(deep = True)
-    df_other = df_other.groupby('Member#')['Event Name'].count()
+    df_other = df_other.groupby('MemberNum')['Event Name'].count()
     qq_list = df_other.values.flatten()
     percentile = stats.percentileofscore(qq_list, sum(df_attend))
     
@@ -113,12 +113,12 @@ def program_graph(id):
 def program_relationship_graph(id1,id2): 
     # Find the number of people who attended both events 
     # Find the number of people who registered for both events 
-    R1 = data.ix[(data['EventID'] == id1)]['Member#'] 
-    R2 = data.ix[(data['EventID'] == id2)]['Member#']
+    R1 = data.ix[(data['EventID'] == id1)]['MemberNum'] 
+    R2 = data.ix[(data['EventID'] == id2)]['MemberNum']
     registered = len(R2[R2.isin(R1)])
     # Find the number of people who attended both events 
-    A1 = data.ix[(data['EventID'] == id1) & (data['Attended'] == 1)]['Member#'] 
-    A2 = data.ix[(data['EventID'] == id2) & (data['Attended'] == 1)]['Member#']
+    A1 = data.ix[(data['EventID'] == id1) & (data['Attended'] == 1)]['MemberNum'] 
+    A2 = data.ix[(data['EventID'] == id2) & (data['Attended'] == 1)]['MemberNum']
     attended = len(A2[A2.isin(A1)])
     return (attended, registered) 
     
