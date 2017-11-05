@@ -5,7 +5,7 @@
 	<title>Charts</title>
 	<!-- Load c3.css -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css" />
-	<link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/styles.css') }}">
 	<style>
 	</style>
 </head>
@@ -14,56 +14,70 @@
 
 <div class="topContainer">
 	<div class="topDiv"><h1>Charts</h1></div>
-    <h1> {{ data }} </h1>
-
 </div>
 
 <div id="chart-one" class="topDiv"></div>
 
-
 <!-- Load d3.js and c3.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
-
-
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.js'></script>
 
 <script>
 
-var data = {{ data }}
+var month = Array();
+var all = Array();
+var reg = Array();
+var attend = Array();
 
-var firstTitle = "Degrees C";
-var secondTitle = "Faraenheit";
-var thirdTitle = "Kelvin";
+function populate() {
+    // make an AJAX call to get list of movies and image files 
+    $.ajax({
+        url: '/get_graph',
+        dataType: "json",
+        data: '',
+        type: 'GET',
+        success: function(response) {
+            for (var ifilm = 0; ifilm < response[0].length; ifilm++) {
+                // add films to the #containment-wrapper element in DOM
+                month[ifilm] = response[0][ifilm];
+                all[ifilm] = response[1][ifilm];
+                reg[ifilm] = response[2][ifilm];
+                attend[ifilm] = response[3][ifilm];
+            }
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    })};
+populate();
 
-var month1 = "January";
-var month2 = "February";
-var month3 = "March";
-var month4 = "April";
-var month5 = "May";
-var month6 = "June";
-var month7 = "July";
-var month8 = "August";
-var month9 = "September";
-var month10 = "October";
-var month11 = "November";
-var month12 = "December";
+console.log(month);
+console.log(all);
+console.log(reg);
+console.log(attend);
+
+
+var firstTitle = "All";
+var secondTitle = "Registered";
+var thirdTitle = "Attended";
+
+console.log(`${firstTitle}`)
 
 var charts = c3.generate({
 	bindto: "#chart-one",
 	data: {
 		columns: [
-			[`${firstTitle}`, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-			[`${secondTitle}`, 13, 14, 20, 30, 39, 42, 70],
-			[`${thirdTitle}`, 175, 100, 180, 300, 140, 230, 310]
+			[`${firstTitle}`].concat(all),
+			[`${secondTitle}`].concat(reg),
+			[`${thirdTitle}`].concat(attend)
 		],
 	type: "line", //pie, bar, donut, scatter, etc
 	},
 	axis: {
 		x: {
 			type: "category",
-			categories: [
-				month1, month2, month3, month4, month5, month6, month7, month8, month9, month10, month11, month12,
-			],
+			categories: month,
 		},
 	},
 });

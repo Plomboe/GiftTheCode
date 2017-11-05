@@ -26,6 +26,8 @@ def allowed_file(filename):
 
 @app.route("/")
 def main_page():
+    print(session['nothing'])
+    print(session['users'])
     print(request.method)
     return render_template('client.html')
 
@@ -40,10 +42,18 @@ def load_data():
     event_dict = {col: list(event_data[col]) for col in event_data.columns}
     event_dict.update({'month': [dd.month for dd in event_data.index]})
 
-    session['event_data'] = df.to_json()
-    session['users'] = members
-    return render_template('charts.html',
-                           data = {'event_data': event_dict})
+    #session['event_data'] = df.to_json()
+    session['event_dict'] = event_dict
+    return render_template('charts.html')
+
+@app.route('/get_graph', methods=['GET'])
+def get_graph():
+    print('getting graph!!!!')
+    #print(session['event_dict'].values())
+    return json.dumps([session['event_dict']['month'],
+                       session['event_dict']['all'],
+                       session['event_dict']['reg'],
+                       session['event_dict']['attend']])
 
 if __name__ == "__main__":
     app.run()
