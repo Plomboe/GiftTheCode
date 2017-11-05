@@ -1,4 +1,4 @@
-# Charity: The 519 
+# The 519: Challenge 3 
 
 
 The main pain point identified by this challenge is that there is no single solution to draw insights from their data. The ideal solution is an interactive user interface which integrates with Excel to provide quality assurance and data visualization features. The 519’s data is divided between member (donor) and event/program data. Potentially, the member data can be used to increase donations through year end personalized reports which shows donors the impact they made. Furthermore, the event data can be leveraged to improve events based on attendance and registration numbers. 
