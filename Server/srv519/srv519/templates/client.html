@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>The 519 Reporting</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+    <!-- Load d3.js and c3.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
+
+    <!-- Load jquery -->
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.js'></script>
+
+    <!-- Load app -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+    <!-- Style sheets -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
@@ -20,33 +32,62 @@
     <div class="mainArea">           
          <div class="row">
             <div class="imgcenter" id="banner">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="The 519 Logo" width="200" height="70">
+                <img src="{{ url_for('static', filename='images/logo.png') }}"
+                     alt="The 519 Logo" width="200" height="70">
             </div>
         </div>
 
-        <div class="row_content">
-            <div class="column1">
-            <form class="search-container" action="//llamaswill.tumblr.com/search">
-                <input id="search-box" placeholder="Search for a donor" type="text" class="search-box" name="q" />
-                <label for="search-box"><span class="glyphicon glyphicon-search search-icon"></span></label>
-                <input type="submit" id="search-submit" />
-            </form>
-
-            </div>
-
-            <div class="column2">
-                <form id="file_input_form" method="POST" enctype=multipart/form-data action="{{ url_for('load_data') }}">
-                    <input type="button" id="not_file" class="excel_button" value="Import Excel File" onclick="document.getElementById('file_input').click();" />
-                    <!--<input type="file" style="display:none;" id="file" name="file"/>-->
-                    <input type="file" name="excel" style="display:none;" id="file_input" accept=".xls, .xlsx, .csv">
+        <div class="row">
+            <div class="row_content">
+                <div class="column1">
+                <form class="search-container">
+                    <input id="search-box" placeholder="Search for a donor" type="text" 
+                           class="search-box" name="q" />
+                    <label for="search-box"><span class="glyphicon glyphicon-search search-icon"></span></label>
+                    <input type="submit" id="search-submit" />
                 </form>
+
+                </div>
+
+                <div class="column2">
+                    <form id="file_input_form" method="POST" enctype=multipart/form-data
+                          action="/file_loaded">
+                        <input type="button" id="not_file" class="excel_button" value="Import Excel File" 
+                               onclick="document.getElementById('file_input').click();" />
+                        <!--<input type="file" style="display:none;" id="file" name="file"/>-->
+                        <input type="file" name="excel" style="display:none;" 
+                               id="file_input" accept=".xls, .xlsx, .csv">
+                    </form>
+                </div>
+
+                <div class="column2">
+                    {% if filename %}
+                        <label>File loaded:</label>
+                        <label id="loaded_label">{{ filename }}</label>
+                        <div class="buttonArea">
+                            <button id="chartButton" onClick="makeCharts();">Make Charts</button>
+                        </div>
+                    {% endif %}
+                </div>
+     
             </div>
- 
         </div>
 
+        <div class="chartArea">
+            <div class="chart" id="chart-1"></div>
+            <div class="chart" id="chart-2"></div>
+            <div class="chart" id="chart-3"></div>
+            <div class="chart" id="chart-4"></div>
+            <div class="chart" id="chart-5"></div>
+            <div class="chart" id="chart-6"></div>
+            <div class="chart" id="chart-7"></div>
+            <div class="chart" id="chart-8"></div>
+            <div class="chart" id="chart-9"></div>
+            <div class="chart" id="chart-10"></div>
+        </div>
+            
     </div>
-		
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>  
+<!--<script src="{{ url_for('static', filename='js/script.js') }}"></script>-->
 
 </body>
 

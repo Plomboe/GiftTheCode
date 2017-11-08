@@ -1,7 +1,7 @@
 # all the imports
 from flask import (Flask, request, session,
-                   render_template, url_for, json,
-                   jsonify)
+                   render_template, redirect, 
+                   url_for, json, jsonify)
 from werkzeug.utils import secure_filename
 
 from visualization import *
@@ -20,41 +20,48 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app.secret_key = 'super secret key'
 
-def allowed_file(filename):
-    return ('.' in filename
-            and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS)
-
-@app.route("/")
+@app.route("/", methods=['GET','POST'])
 def main_page():
     print(request.method)
-    return render_template('client.html')
+    if request.method == 'POST':
+        return redirect(url_for('database'))
+    else:
+        return render_template('client.html')
 
-@app.route('/dashboard', methods=['POST'])
+@app.route('/file_loaded', methods=['POST'])
 def load_data():
+    print(request.files['excel'].filename)
     df = pd.read_excel(request.files['excel'])
     members = sorted(list(set([xx for xx in df['MemberNum']])))
 
     event_data = []
+    eds = []
     for eventid in range(1,11):
-        ed = program_graph(eventid, df)
-        event_dict = {col: list([int(e) for e in ed[col]])
-                      for col in ed.columns}
-        event_dict.update({'month': [dd.month for dd 
-                           in ed.index]})
+        eds.append(program_graph(eventid, df))
+
+    master_index = sorted(list(set.union(*[set(ed.index) for ed in eds])))
+
+    for ed in eds:
+        ed = ed.loc[master_index[:-1]].fillna(0)
+        event_dict = {col: ed[col].tolist() for col in ed.columns}
+        event_dict.update({'month': [MONTHS[dd.month] for dd in ed.index]})
         event_data.append(event_dict)
 
     session['event_data'] = event_data
-    return render_template('charts.html')
+    session['df_dict'] = df_to_dict(df)
+
+    return render_template('client.html', 
+                           filename = request.files['excel'].filename)
 
 @app.route('/get_graph', methods=['GET'])
-def get_graph():
-    print('I am STILL HERE!!!')
-    print('getting graph!!!!')
-    return json.dumps([[session['event_data'][ii]['month'],
-                        session['event_data'][ii]['all'],
-                        session['event_data'][ii]['reg'],
-                        session['event_data'][ii]['attend']]
-                        for ii in range(len(session['event_data']))])
+def get_graphs():
+    return json.dumps({'event_graph': session['event_data']})
+
+def df_to_dict(df):
+    df_dict = {}
+    for col in df.columns:
+        df_dict[col] = df[col].tolist()
+    return df_dict
 
 if __name__ == "__main__":
     app.run()

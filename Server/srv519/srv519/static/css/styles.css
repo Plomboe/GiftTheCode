@@ -70,6 +70,11 @@ body {
     position: relative;
     display: none;
   }
+
+  #loaded_label {
+    height: 20px;
+    font-size: 140%;
+}
   
   .search-icon {
     position: center;
@@ -130,10 +135,9 @@ body {
  height: 120px;
  padding: 15px;
  padding-top: 31px;
- width: 60%;
+ width: 30%;
  float: left;
  background-color: #2eb82e;
-
 }
 
 .excel_button {
@@ -141,3 +145,14 @@ body {
     font-size: 120%;
 }
 
+.chartArea {
+    width: 984px;
+    padding: 20px;
+}
+
+.chart {
+    display: inline-block;
+    padding: 10px;
+    height: 200px;
+    width: 450px;
+}
